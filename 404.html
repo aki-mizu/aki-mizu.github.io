@@ -11,8 +11,8 @@
 
       var l = window.location;
       
-      // Check if we're already in a redirect
-      if (l.search.indexOf('?/') === -1) {
+      // Only redirect if we're not already in a redirect
+      if (!l.search.includes('?/')) {
         var path = l.pathname.split('/').slice(1 + pathSegmentsToKeep).join('/');
         var search = l.search ? '&' + l.search.slice(1) : '';
         
@@ -25,18 +25,14 @@
           param.replace(/[\/\?&]/g, '_')
         ).join('&') : '';
         
-        // Use a different method to avoid URL encoding issues
-        var redirectUrl = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        // Redirect to the main page with the path as a query parameter
+        window.location.replace(
+          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
           l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
           redirectPath +
           (redirectSearch ? '&' + redirectSearch : '') +
-          l.hash;
-        
-        // Use a different method to avoid URL encoding issues
-        window.location.replace(redirectUrl);
-      } else {
-        // If we're already in a redirect, just show the app
-        window.location.replace('/');
+          l.hash
+        );
       }
     </script>
   </head>
