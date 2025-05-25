@@ -7,22 +7,16 @@
     <meta name="description" content="Current Events" />
     <title>Current Events</title>
     <script>
-      // Single Page Apps for GitHub Pages
-      // MIT License
-      // https://github.com/rafgraph/spa-github-pages
-      (function(l) {
-        if (l.search[1] === '/' ) {
-          var search = l.search.slice(1);
-          // Restore the original characters
-          var decoded = search.replace(/_/g, function(match) {
-            return match === '_' ? '/' : '&';
-          });
+      // Handle path parameter from 404 redirect
+      (function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var path = urlParams.get('path');
+        
+        if (path) {
           // Update the URL without reloading the page
-          window.history.replaceState(null, null,
-              l.pathname.slice(0, -1) + decoded + l.hash
-          );
+          window.history.replaceState(null, null, path);
         }
-      }(window.location))
+      })();
     </script>
     <script type="module" crossorigin src="/assets/index-BwD-9wQN.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-xaKaz8d3.css">

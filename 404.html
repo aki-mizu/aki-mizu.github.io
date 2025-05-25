@@ -4,38 +4,16 @@
     <meta charset="utf-8">
     <title>Redirecting...</title>
     <script>
-      // Single Page Apps for GitHub Pages
-      // MIT License
-      // https://github.com/rafgraph/spa-github-pages
-      var pathSegmentsToKeep = 1;
-
-      var l = window.location;
+      // Get the current path
+      var path = window.location.pathname;
       
-      // Check if we're already in a redirect or if we're on the root path
-      if (l.search.indexOf('?/') === -1 && l.pathname !== '/') {
-        var path = l.pathname.split('/').slice(1 + pathSegmentsToKeep).join('/');
-        var search = l.search ? '&' + l.search.slice(1) : '';
-        
-        // Use a different approach to avoid URL encoding issues
-        var redirectPath = path ? path.split('/').map(segment => 
-          segment.replace(/[\/\?&]/g, '_')
-        ).join('/') : '';
-        
-        var redirectSearch = search ? search.split('&').map(param => 
-          param.replace(/[\/\?&]/g, '_')
-        ).join('&') : '';
-        
-        // Use a different method to avoid URL encoding issues
-        var redirectUrl = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-          l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-          redirectPath +
-          (redirectSearch ? '&' + redirectSearch : '') +
-          l.hash;
-        
-        // Use a different method to avoid URL encoding issues
+      // If we're not on the root path, redirect to the main app
+      if (path !== '/') {
+        // Construct the redirect URL with the path as a query parameter
+        var redirectUrl = window.location.origin + '/?path=' + encodeURIComponent(path);
         window.location.href = redirectUrl;
       } else {
-        // If we're already in a redirect or on the root path, just show the app
+        // If we're on the root path, just show the app
         window.location.href = '/';
       }
     </script>
