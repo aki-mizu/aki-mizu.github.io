@@ -10,27 +10,31 @@
       var pathSegmentsToKeep = 1;
 
       var l = window.location;
-      var path = l.pathname.split('/').slice(1 + pathSegmentsToKeep).join('/');
-      var search = l.search ? '&' + l.search.slice(1) : '';
       
-      // Use a different approach to avoid URL encoding issues
-      var redirectPath = path ? path.split('/').map(segment => 
-        segment.replace(/[\/\?&]/g, '_')
-      ).join('/') : '';
-      
-      var redirectSearch = search ? search.split('&').map(param => 
-        param.replace(/[\/\?&]/g, '_')
-      ).join('&') : '';
-      
-      // Use a different method to avoid URL encoding issues
-      var redirectUrl = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
-        redirectPath +
-        (redirectSearch ? '&' + redirectSearch : '') +
-        l.hash;
-      
-      // Use a different method to avoid URL encoding issues
-      window.location.href = redirectUrl;
+      // Check if we're already in a redirect
+      if (l.search.indexOf('?/') === -1) {
+        var path = l.pathname.split('/').slice(1 + pathSegmentsToKeep).join('/');
+        var search = l.search ? '&' + l.search.slice(1) : '';
+        
+        // Use a different approach to avoid URL encoding issues
+        var redirectPath = path ? path.split('/').map(segment => 
+          segment.replace(/[\/\?&]/g, '_')
+        ).join('/') : '';
+        
+        var redirectSearch = search ? search.split('&').map(param => 
+          param.replace(/[\/\?&]/g, '_')
+        ).join('&') : '';
+        
+        // Use a different method to avoid URL encoding issues
+        var redirectUrl = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+          l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?/' +
+          redirectPath +
+          (redirectSearch ? '&' + redirectSearch : '') +
+          l.hash;
+        
+        // Use a different method to avoid URL encoding issues
+        window.location.href = redirectUrl;
+      }
     </script>
   </head>
   <body>
