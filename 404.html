@@ -33,10 +33,10 @@
           l.hash;
         
         // Use a different method to avoid URL encoding issues
-        window.location.replace(redirectUrl);
+        window.location.href = redirectUrl;
       } else {
         // If we're already in a redirect, just show the app
-        window.location.replace('/');
+        window.location.href = '/';
       }
     </script>
   </head>
