@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Current Events" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/logo192.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <title>Current Events</title>
     <script>
       // Handle path parameter from 404 redirect
@@ -17,6 +21,19 @@
           window.history.replaceState(null, null, path);
         }
       })();
+
+      // Register service worker
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js')
+            .then(registration => {
+              console.log('ServiceWorker registration successful');
+            })
+            .catch(err => {
+              console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+      }
     </script>
     <script type="module" crossorigin src="/assets/index-DC8SJARV.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-gyBtjnLJ.css">
